@@ -38,9 +38,9 @@ const variantClasses: Record<ButtonVariant, string> = {
   `,
   danger: `
     text-red-600 dark:text-red-400
-    bg-red-50 dark:bg-red-950/30
-    border border-red-200 dark:border-red-800
-    hover:bg-red-100 dark:hover:bg-red-950/50
+    bg-red-50 dark:bg-red-950/40
+    border border-red-200 dark:border-red-900
+    hover:bg-red-100 dark:hover:bg-red-950/80
     focus-visible:ring-red-500
   `,
   ghost: `
