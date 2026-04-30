@@ -1,18 +1,18 @@
 import { db } from "@/db";
+import Container from "@/components/Container";
+import SnippetCard from "./snippets/SnippetCard";
 
 export default async function Home() {
   const snippets = await db.snippet.findMany();
-  const renderedSnippets = snippets.map((snippet) => (
-    <div key={snippet.id} className="border p-4 rounded mb-4">
-      <h2 className="font-bold text-lg">{snippet.title}</h2>
-      <pre className="bg-white p-2 rounded mt-2 text-black">{snippet.code}</pre>
-    </div>
-  ));
 
   return (
-    <main>
-      <h1>Your Snippets</h1>
-      {renderedSnippets}
-    </main>
+    <Container>
+      <h1 className="text-2xl font-semibold mb-6">Your Snippets</h1>
+      <div className="space-y-4">
+        {snippets.map((snippet) => (
+          <SnippetCard key={snippet.id} id={snippet.id} title={snippet.title} />
+        ))}
+      </div>
+    </Container>
   );
 }
