@@ -1,14 +1,23 @@
 import { db } from "@/db";
 import { redirect } from "next/navigation";
+import Container from "@/components/Container";
+import { ArrowBackIcon } from "@/components/icons/ArrowBackIcon";
+import { Button } from "@/components/Button";
+import { CheckIcon } from "@/components/icons/CheckIcon";
+import { CloseIcon } from "@/components/icons/CloseIcon";
+import { Input } from "@/components/Input";
+import { Textarea } from "@/components/Textarea";
+import { WindowControls } from "@/components/WindowControls";
+import { PageHeader } from "@/components/PageHeader";
+import { PlusIcon } from "@/components/icons/PlusIcon";
 
 export default function SnippetCreatePage() {
   async function createSnippet(formData: FormData) {
-    // This need to be a server action!
     "use server";
-    // Check the user's input and make sure they're valid
+
     const title = formData.get("title") as string;
     const code = formData.get("code") as string;
-    // Create a new record in the database
+
     const snippet = await db.snippet.create({
       data: {
         title,
@@ -16,49 +25,71 @@ export default function SnippetCreatePage() {
       },
     });
 
-    // Log on succeed
-    console.log(`snippet::${snippet.id}`);
-    console.log(`snippet::${snippet.title}`);
-    console.log(`snippet::${snippet.code}`);
-
-    // Redirect to the root page
+    console.log(`Snippet created: ${snippet.id} - ${snippet.title}`);
     redirect("/");
   }
-  return (
-    <form action={createSnippet}>
-      <h3 className="font-bold m-3">Create a Snippet</h3>
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-4">
-          <label htmlFor="title" className="w-12">
-            Title
-          </label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            className="border p-2 rounded w-full"
-            required
-          />
-        </div>
 
-        <div className="flex flex-col gap-4">
-          <label htmlFor="code" className="w-12">
-            Code
-          </label>
-          <textarea
-            id="code"
-            name="code"
-            className="border p-2 rounded w-full"
-            required
-          />
+  return (
+    <Container>
+      {/* Back Navigation */}
+      <Button
+        className="mb-4"
+        href="/"
+        variant="ghost"
+        icon={<ArrowBackIcon />}
+      >
+        Back to snippets
+      </Button>
+
+      {/* Header Section */}
+      <PageHeader
+        icon={<PlusIcon className="w-6 h-6 text-white" />}
+        title="Create New Snippet"
+        subtitle="Add your code snippet"
+      />
+
+      {/* Form Section */}
+      <form action={createSnippet}>
+        <div className="relative">
+          <div className="relative rounded-2xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 overflow-hidden transition-all duration-300">
+            {/* Form Header */}
+            <WindowControls />
+
+            {/* Form Content */}
+            <div className="relative p-6 space-y-6">
+              <Input
+                label="Title"
+                id="title"
+                name="title"
+                placeholder="e.g., React useEffect Hook"
+                hint="Give your snippet a descriptive title"
+                required
+              />
+
+              <Textarea
+                label="Code"
+                id="code"
+                name="code"
+                rows={10}
+                placeholder="// Paste your code here...\nconst greeting = 'Hello World';\nconsole.log(greeting);"
+                hint="Paste or write your code snippet here"
+                required
+              />
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex justify-end gap-3 mt-6">
+            <Button href="/" variant="secondary" icon={<CloseIcon />}>
+              Cancel
+            </Button>
+
+            <Button type="submit" variant="primary" icon={<CheckIcon />}>
+              Create Snippet
+            </Button>
+          </div>
         </div>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 p-2 rounded hover:bg-blue-700 transition"
-        >
-          Create Snippet
-        </button>
-      </div>
-    </form>
+      </form>
+    </Container>
   );
 }
