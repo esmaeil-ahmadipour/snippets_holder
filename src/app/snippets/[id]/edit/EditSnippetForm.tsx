@@ -11,7 +11,7 @@ import { Snippet } from "@prisma/client";
 
 interface EditSnippetFormProps {
   snippet: Snippet;
-  editSnippet: (formData: FormData) => Promise<void>;
+  editSnippet: (formData: FormData) => Promise<{ error?: string } | void>;
 }
 
 export function EditSnippetForm({
@@ -21,11 +21,22 @@ export function EditSnippetForm({
   const [isPending, startTransition] = useTransition();
   const [title, setTitle] = useState(snippet?.title || "");
   const [code, setCode] = useState(snippet?.code || "");
+  const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(formData: FormData) {
+  async function handleSubmit(formData: FormData) {
+    setError(null);
     startTransition(async () => {
       formData.append("id", snippet.id.toString());
-      await editSnippet(formData);
+      const result = await editSnippet(formData);
+
+      if (
+        result &&
+        typeof result === "object" &&
+        "error" in result &&
+        result.error
+      ) {
+        setError(result.error);
+      }
     });
   }
 
@@ -36,6 +47,12 @@ export function EditSnippetForm({
   return (
     <form action={handleSubmit}>
       <div className="relative">
+        {/* نمایش خطا */}
+        {error && (
+          <div className="p-3 m-2 rounded-lg bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-sm">
+            {error}
+          </div>
+        )}
         <div className="relative rounded-2xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 overflow-hidden transition-all duration-300">
           <WindowControls />
 
