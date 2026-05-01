@@ -18,7 +18,7 @@ interface SnippetShowPageProps {
 }
 
 export default async function SnippetShowPage(props: SnippetShowPageProps) {
-  await new Promise((r) => setTimeout(r, 2000)); // Simulate loading delay
+  // await new Promise((r) => setTimeout(r, 2000)); // Simulate loading delay
 
   const { id } = await props.params;
 
