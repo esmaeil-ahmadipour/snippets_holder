@@ -1,6 +1,5 @@
 import { db } from "@/db";
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { CopyButton } from "@/app/snippets/[id]/CopyButton";
 import { Button } from "@/components/Button";
 import { EditIcon } from "@/components/icons/EditIcon";
@@ -10,6 +9,7 @@ import { ArrowBackIcon } from "@/components/icons/ArrowBackIcon";
 import { CodeIcon } from "@/components/icons/CodeIcon";
 import { PageHeader } from "@/components/PageHeader";
 import { WindowControls } from "@/components/WindowControls";
+import SnippetEditorWrapper from "@/components/SnipetEditorWrapper";
 
 interface SnippetShowPageProps {
   params: {
@@ -67,9 +67,7 @@ export default async function SnippetShowPage(props: SnippetShowPageProps) {
           />
           {/* Code Content */}
           <div className="relative p-6">
-            <pre className="overflow-x-auto text-sm font-mono text-gray-700 dark:text-gray-300 leading-relaxed">
-              <code className="block whitespace-pre-wrap">{snippet.code}</code>
-            </pre>
+            <SnippetEditorWrapper snippet={snippet} readOnly={true} />
 
             {/* Subtle fade for long content */}
             <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white via-white/80 to-transparent dark:from-gray-900 dark:via-gray-900/80 pointer-events-none rounded-b-2xl" />

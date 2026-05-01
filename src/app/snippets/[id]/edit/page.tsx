@@ -3,7 +3,7 @@ import { Button } from "@/components/Button";
 import Container from "@/components/Container";
 import { ArrowBackIcon } from "@/components/icons/ArrowBackIcon";
 import { PageHeader } from "@/components/PageHeader";
-import { PlusIcon } from "@/components/icons/PlusIcon";
+import { EditIcon } from "@/components/icons/EditIcon";
 import { EditSnippetForm } from "./EditSnippetForm";
 import { editSnippet } from "./Actions";
 import { notFound } from "next/navigation";
@@ -15,8 +15,6 @@ interface SnippetEditPageProps {
 }
 
 export default async function SnippetEditPage(props: SnippetEditPageProps) {
-//   await new Promise((r) => setTimeout(r, 2000)); // Simulate loading delay
-
   const { id } = await props.params;
 
   const snippetId = Number(id);
@@ -47,9 +45,9 @@ export default async function SnippetEditPage(props: SnippetEditPageProps) {
 
       {/* Header Section */}
       <PageHeader
-        icon={<PlusIcon className="w-6 h-6 text-white" />}
+        icon={<EditIcon className="w-6 h-6 text-white" />}
         title="Edit Snippet"
-        subtitle="Edit your code snippet"
+        subtitle={`Editing: ${snippet.title}`}
       />
 
       {/* Form Section */}
