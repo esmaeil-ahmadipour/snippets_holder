@@ -4,7 +4,7 @@ import { Button } from "@/components/Button";
 import { PageHeader } from "@/components/PageHeader";
 import { PlusIcon } from "@/components/icons/PlusIcon";
 import { CreateSnippetForm } from "./CreateSnippetForm";
-import { createSnippet } from "./Actions";
+import { createSnippet } from "./actions";
 
 export default function SnippetCreatePage() {
   return (

@@ -3,18 +3,18 @@ import { Button } from "@/components/Button";
 import Container from "@/components/Container";
 import { ArrowBackIcon } from "@/components/icons/ArrowBackIcon";
 import { PageHeader } from "@/components/PageHeader";
-import { EditIcon } from "@/components/icons/EditIcon";
-import { EditSnippetForm } from "./EditSnippetForm";
-import { editSnippet } from "./actions";
+import { TrashIcon } from "@/components/icons/TrashIcon";
+import { DeleteSnippetForm } from "./DeleteSnippetForm";
+import { deleteSnippet } from "./actions";
 import { notFound } from "next/navigation";
 
-interface SnippetEditPageProps {
+interface SnippetDeletePageProps {
   params: {
     id: string;
   };
 }
 
-export default async function SnippetEditPage(props: SnippetEditPageProps) {
+export default async function SnippetDeletePage(props: SnippetDeletePageProps) {
   const { id } = await props.params;
 
   const snippetId = Number(id);
@@ -36,22 +36,24 @@ export default async function SnippetEditPage(props: SnippetEditPageProps) {
       {/* Back Navigation */}
       <Button
         className="mb-4"
-        href="/"
+        href={`/snippets/${snippet.id}`}
         variant="ghost"
         icon={<ArrowBackIcon />}
       >
-        Back to snippets
+        Back to snippet
       </Button>
 
       {/* Header Section */}
       <PageHeader
-        icon={<EditIcon className="w-6 h-6 text-white" />}
-        title="Edit Snippet"
-        subtitle={`Editing: ${snippet.title}`}
+        icon={<TrashIcon className="w-6 h-6 text-white" />}
+        title="Delete Snippet"
+        subtitle="Permanently remove this snippet"
+        iconGradient="from-red-500 to-pink-500"
+        underlineGradient="from-red-500 to-pink-500"
       />
 
-      {/* Form Section */}
-      <EditSnippetForm editSnippet={editSnippet} snippet={snippet} />
+      {/* Delete Form Section */}
+      <DeleteSnippetForm deleteSnippet={deleteSnippet} snippet={snippet} />
     </Container>
   );
 }
