@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Snippet } from "@prisma/client";
+import { Snippet } from "@/db/type-snippet";
 
 // Dynamic loading to prevent SSR
 const SnippetEditor = dynamic(() => import("@/components/SnippetEditor"), {

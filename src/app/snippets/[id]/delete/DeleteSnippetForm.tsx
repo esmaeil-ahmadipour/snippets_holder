@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 import { Button } from "@/components/Button";
 import { TrashIcon } from "@/components/icons/TrashIcon";
 import { CloseIcon } from "@/components/icons/CloseIcon";
-import { Snippet } from "@prisma/client";
+import { Snippet } from "@/db/type-snippet";
 
 interface DeleteSnippetFormProps {
   snippet: Snippet;

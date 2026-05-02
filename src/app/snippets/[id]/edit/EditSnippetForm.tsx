@@ -7,7 +7,7 @@ import { CloseIcon } from "@/components/icons/CloseIcon";
 import { Input } from "@/components/Input";
 import { WindowControls } from "@/components/WindowControls";
 import SnippetEditor from "@/components/SnippetEditor";
-import { Snippet } from "@prisma/client";
+import { Snippet } from "@/db/type-snippet";
 
 interface EditSnippetFormProps {
   snippet: Snippet;

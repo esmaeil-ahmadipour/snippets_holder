@@ -3,6 +3,7 @@ import Container from "@/components/Container";
 import { Button } from "@/components/Button";
 import { PlusIcon } from "@/components/icons/PlusIcon";
 import SnippetCard from "./snippets/SnippetCard";
+import { Snippet } from "@/db/type-snippet";
 
 export default async function Home() {
   const snippets = await db.snippet.findMany();
@@ -36,7 +37,7 @@ export default async function Home() {
             </Button>
           </div>
         ) : (
-          snippets.map((snippet) => (
+          snippets.map((snippet: Snippet) => (
             <SnippetCard
               key={snippet.id}
               id={snippet.id}

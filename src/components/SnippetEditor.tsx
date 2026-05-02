@@ -1,6 +1,6 @@
 "use client";
 
-import { Snippet } from "@prisma/client";
+import { Snippet } from "@/db/type-snippet";
 import Editor from "@monaco-editor/react";
 import { useState } from "react";
 
